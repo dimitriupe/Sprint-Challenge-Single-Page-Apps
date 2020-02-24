@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import CharacterCard from "./CharacterCard";
+import CharacterCard from "./CharacterCard";
 
 
 export default function SearchForm({ characters }) {
@@ -10,7 +10,7 @@ export default function SearchForm({ characters }) {
   useEffect(() => {
     
     const results = characters.filter(character => {
-      return character.toLowerCase().includes(searchTerm.toLowerCase());
+      return character.name.toLowerCase().includes(searchTerm.toLowerCase());
     });
 
     setSearchResults(results);
@@ -26,20 +26,16 @@ export default function SearchForm({ characters }) {
      <form>
         <label htmlFor="name">Search:</label>
         <input
-          id="name"
           type="text"
-          name="textfield"
           placeholder="Search"
           value={searchTerm}
           onChange={handleChange}
         />
       </form>
       <div className="character-list">
-        <ul>
-          {searchResults.map(character => {
-            return <li key={character}>{character}</li>;
-          })}
-        </ul>
+        {searchResults.map(character => (
+             <CharacterCard character={character} key={character.id} />
+        ))}
       </div>
     </section>
   );
